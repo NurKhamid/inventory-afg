@@ -15,7 +15,7 @@
 - Run __php artisan key:generate__
 - Run __php artisan migrate --seed__ (it has some seeded data for your testing)
 - Run __php artisan serve__ to run application
-- That's it: launch the main URL or go to __/__ __http://127.0.0.1:8000/__ and login with default credentials __admin@admin.com__ - __password__
+- That's it: launch the main URL or go to __http://127.0.0.1:8000/__ and login with default credentials __admin@admin.com__ - __password__
 
 ## About Laravel
 
