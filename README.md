@@ -7,6 +7,16 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+## How to use
+
+- Clone the repository with __git clone__
+- Copy __.env.example__ file to __.env__ and edit database credentials there (create database before)
+- Run __composer install__
+- Run __php artisan key:generate__
+- Run __php artisan migrate --seed__ (it has some seeded data for your testing)
+- Run __php artisan serve__ to run application
+- That's it: launch the main URL or go to __/__ __http://127.0.0.1:8000/__ and login with default credentials __admin@admin.com__ - __password__
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
