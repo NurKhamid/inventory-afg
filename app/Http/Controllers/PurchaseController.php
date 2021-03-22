@@ -26,10 +26,19 @@ class PurchaseController extends Controller
     }
 
     public function store(PurchaseRequest $request)
-    {        
-        $purchase = new Purchase;
+    {
+		$product = Product::find($request['product_id']);
 
-        $purchase->addPurchase($request->only([
+		$units_received = $product->units_received + $request['quantity'];
+
+		$units_in_stock = $product->units_in_stock + $request['quantity'];
+		
+		$product->update([
+			'units_in_stock' => $units_in_stock,
+			'units_received' => $units_received
+		]);
+
+        Purchase::create($request->only([
             'product_id',
             'quantity',
             'purchase_date',
@@ -51,6 +60,17 @@ class PurchaseController extends Controller
 
     public function update(PurchaseRequest $request, Purchase $purchase)
     {
+        $product = Product::find($request['product_id']);
+
+		$units_received = $product->units_received + ($request['quantity'] - $purchase['quantity']);
+
+		$units_in_stock = $product->units_in_stock + ($request['quantity'] - $purchase['quantity']);
+		
+		$product->update([
+			'units_in_stock' => $units_in_stock,
+			'units_received' => $units_received
+		]);
+
         $purchase->update($request->only([
             'product_id',
             'quantity',

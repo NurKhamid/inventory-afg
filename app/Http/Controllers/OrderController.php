@@ -14,15 +14,15 @@ class OrderController extends Controller
     {
         $orders = Order::get();
 
-    	return view('orders.index', compact('orders'));
+        return view('orders.index', compact('orders'));
     }
 
     public function create()
     {
-    	$products = Product::get();
-    	$customers = Customer::get();
+        $products = Product::get();
+        $customers = Customer::get();
 
-    	return view('orders.create', compact('products', 'customers'));
+        return view('orders.create', compact('products', 'customers'));
     }
 
     public function store(OrderRequest $request)
@@ -59,14 +59,28 @@ class OrderController extends Controller
 
     public function update(OrderRequest $request, Order $order)
     {
-        $order->update($request->only([
-            'product_id',
-            'quantity',
-            'order_date',
-            'customer_id'
-        ]));
+        $product = Product::find($request['product_id']);
+        
+		$units_on_order = $product->units_on_order + ($request['quantity'] - $order['quantity']);
+        
+		$units_in_stock = $product->units_in_stock - ($request['quantity'] - $order['quantity']);
 
-        session()->flash('message', 'Order data successfully updated');
+        if($units_in_stock < 0){
+            session()->flash('message-error', 'Order data failed to update');
+        } else {
+            $order->update($request->only([
+                'product_id',
+                'quantity',
+                'order_date',
+                'customer_id'
+            ]));
+            $product->update([
+                'units_in_stock' => $units_in_stock,
+                'units_on_order' => $units_on_order
+            ]);
+
+            session()->flash('message', 'Order data successfully updated');
+        }
 
         return redirect('order');
     }

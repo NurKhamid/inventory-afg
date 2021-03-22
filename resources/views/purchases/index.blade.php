@@ -50,15 +50,15 @@
 
 								<a data-toggle="tooltip" data-placement="left" data-original-title="Edit data"  href="/purchase/{{ $purchase->id }}/edit" class="btn btn-primary btn-circle">
 									<i class="fa fa-pencil"></i>
-                            	</a>
+								</a>
 
-                            	<form style="display: inline-block;" id="delete-form" action="/purchase/{{ $purchase->id }}" method="post" >
-                            		<button data-toggle="tooltip" data-placement="right" data-original-title="Delete data" class="btn btn-danger btn-circle" type="submit"><i class="fa fa-times"></i></button>
+								<form style="display: inline-block;" id="delete-form" action="/purchase/{{ $purchase->id }}" method="post" >
+									<button data-toggle="tooltip" data-placement="right" data-original-title="Delete data" class="btn btn-danger btn-circle" type="submit"><i class="fa fa-times"></i></button>
 
-                            		{{ method_field('delete') }}
-                            		
-                            		{{ csrf_field() }}
-                            	</form>
+									{{ method_field('delete') }}
+									
+									{{ csrf_field() }}
+								</form>
 
 							</td>
 						</tr>
